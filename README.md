@@ -1,4 +1,4 @@
 genetics
 ========
 
-A python library for genetic algorith,s
+A python library for genetic algorithms
