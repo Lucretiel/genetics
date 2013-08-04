@@ -10,26 +10,31 @@ def mask_run(mask, b):
 
 
 def test_one_point_crossover():
-    mask = itertools.islice(cross.one_point_crossover(100), 100)
+    mask = list(cross.one_point_crossover(100))
+    assert len(mask) == 100
+    mask_iter = iter(mask)
 
-    mask_run(mask, True)
+    mask_run(mask_iter, True)
 
-    for m in mask:
+    for m in mask_iter:
         assert m is False
 
 
 def test_two_point_crossover():
-    mask = itertools.islice(cross.two_point_crossover(100), 100)
+    mask = list(cross.two_point_crossover(100))
+    assert len(mask) == 100
+    mask_iter = iter(mask)
 
-    mask_run(mask, True)
-    mask_run(mask, False)
+    mask_run(mask_iter, True)
+    mask_run(mask_iter, False)
 
-    for m in mask:
+    for m in mask_iter:
         assert m is True
 
 
 def test_uniform_point_crossover():
-    mask = itertools.islice(cross.uniform_point_crossover(100), 100)
+    mask = list(cross.uniform_point_crossover(100))
+    assert len(mask) == 100
 
     values = set()
     for m in mask:
