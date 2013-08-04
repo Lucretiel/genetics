@@ -5,14 +5,14 @@ import random
 def one_point_crossover(length):
     point = random.randint(0, length)
     yield from itertools.repeat(True, point)
-    yield from itertools.repeat(False)
+    yield from itertools.repeat(False, length - point)
 
 
 def two_point_crossover(length):
     points = sorted(random.randint(0, length) for _ in range(2))
     yield from itertools.repeat(True, points[0])
     yield from itertools.repeat(False, points[1] - points[0])
-    yield from itertools.repeat(True)
+    yield from itertools.repeat(True, length - points[1])
 
 
 def uniform_point_crossover(length):
