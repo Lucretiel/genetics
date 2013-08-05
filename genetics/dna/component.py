@@ -4,7 +4,7 @@ from .base import DNABase
 class DNAComponent(DNABase):
     '''
     A dna component is a single, indivisible value in the dna. Subclasses
-    should provide a mutate_value(val) for mutation and an initial_value()
+    should provide a mutate_value() for mutation and an initial_value()
     function for argument-free initialization. If no initial_value function
     exists, mutate_value will be used
     '''
