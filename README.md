@@ -15,7 +15,7 @@ import random
 
 import genetics
 
-letters = string.ascii_uppercase + string.ascii_lowercase + string.punctuation
+letters = string.ascii_uppercase + string.ascii_lowercase + string.punctuation + ' '
 solution = 'Hello World!'
 
 class LetterComponent(genetics.DNAComponent):
