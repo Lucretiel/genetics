@@ -38,17 +38,17 @@ class DiscreteSimulation:
 
     def step_generator(self, population):
         '''Run a whole genetic step on a scored population'''
-        #Sort population and score if nessesary
+        # Sort population and score if nessesary
         scored_population = sorted(self.find_scores(population), reverse=True)
 
-        #Yield the elite elements
+        # Yield the elite elements
         yield from scored_population[:self.elite_size]
-        #Generate parents
+        # Generate parents
         for parent1, parent2 in self.parents(scored_population):
-            #crossover parents
+            # crossover parents
             mask = self.crossover_mask(parent1.total_length())
             for child in parent1.combine(parent2, mask):
-                #mutate
+                # mutate
                 yield child.mutate(self.mutation_mask(child.total_length()))
 
     def step(self, population):

@@ -22,13 +22,13 @@ class DNASegment(DNABase):
 
         def combine_generator():
             for c1, c2 in zip(self, other):
-                yield c1.cross(c2, iter_cross_mask)
+                yield c1.combine(c2, iter_cross_mask)
 
         child1, child2 = combine_element_pairs(combine_generator())
 
         return type(self)(child1), type(self)(child2)
 
-    #Iteration protocol
+    # Iteration protocol
     def __iter__(self):
         return iter(self.components)
 
