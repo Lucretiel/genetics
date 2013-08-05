@@ -14,7 +14,8 @@ class DNASegment(DNABase):
         return sum(c.total_length() for c in self.components)
 
     def mutate(self, mutate_mask):
-        return type(self)(c.mutate(mutate_mask) for c in self.components)
+        iter_mutate_mask = iter(mutate_mask)
+        return type(self)(c.mutate(iter_mutate_mask) for c in self.components)
 
     def combine(self, other, cross_mask):
         iter_cross_mask = iter(cross_mask)
