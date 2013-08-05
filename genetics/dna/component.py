@@ -1,12 +1,11 @@
-import abc
 from .base import DNABase
 
 
-class DNAComponent(DNABase, metaclass=abc.ABCMeta):
+class DNAComponent(DNABase):
     '''
-    A dna component is a single, indivisible value in the dna. It is an ABC and
-    should be subclassed with a mutate_value() function. It should NOT overload
-    and of the other methods, including __init__.
+    A dna component is a single, indivisible value in the dna. Subclasses
+    should provide a mutate_value() function to allow for argument-free
+    initialization or mutation
     '''
     def __init__(self, initial_value=None):
         if initial_value is None:
@@ -28,7 +27,3 @@ class DNAComponent(DNABase, metaclass=abc.ABCMeta):
             return (self, other)
         else:
             return (other, self)
-
-    @abc.abstractmethod
-    def mutate_value(self):
-        pass
