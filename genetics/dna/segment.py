@@ -1,9 +1,12 @@
-import abc
 from .base import DNABase, combine_element_pairs
 
 
-class DNASegment(DNABase, metaclass=abc.ABCMeta):
+class DNASegment(DNABase):
     def __init__(self, components=None):
+        '''
+        If no initializer is given, there should be an initial_components()
+        method to initialize them
+        '''
         if components is None:
             components = self.initial_components()
         self.components = tuple(components)
@@ -24,14 +27,6 @@ class DNASegment(DNABase, metaclass=abc.ABCMeta):
         child1, child2 = combine_element_pairs(combine_generator())
 
         return type(self)(child1), type(self)(child2)
-
-    @abc.abstractmethod
-    def initial_components(self):
-        '''
-        This method should return an iterable initializing a DNASegment's
-        components
-        '''
-        pass
 
     #Iteration protocol
     def __iter__(self):
