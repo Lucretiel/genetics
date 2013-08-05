@@ -4,12 +4,16 @@ from .base import DNABase
 class DNAComponent(DNABase):
     '''
     A dna component is a single, indivisible value in the dna. Subclasses
-    should provide a mutate_value() function to allow for argument-free
-    initialization or mutation
+    should provide a mutate_value(val) for mutation and an initial_value()
+    function for argument-free initialization. If no initial_value function
+    exists, mutate_value will be used
     '''
     def __init__(self, initial_value=None):
         if initial_value is None:
-            self.value = self.mutate_value()
+            try:
+                self.value = self.initial_value()
+            except AttributeError:
+                self.value = self.mutate_value()
         else:
             self.value = initial_value
 

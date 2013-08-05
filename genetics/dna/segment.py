@@ -5,7 +5,6 @@ class DNASegment(DNABase):
     def __init__(self, components=None):
         '''
         If no initializer is given, there should be an initial_components()
-        method to initialize them
         '''
         if components is None:
             components = self.initial_components()
