@@ -25,16 +25,15 @@ class LetterComponent(genetics.DNAComponent):
 class WordDNA(genetics.arrayed_segment(len(solution), LetterComponent)):
     @property
     def score(self):
-        return sum(1 if comp.value == letter else 0 for comp, letter in
-                   zip(self, solution))
+        return sum(comp.value == letter for comp, letter in zip(self, solution))
 
     def __str__(self):
         return ''.join(comp.value for comp in self)
 
 sim = genetics.DiscreteSimulation(
     population_size=100,
-    mutation_mask=genetics.mutation_rate(0.01),
-    crossover_mask=genetics.one_point_crossover,
+    mutation_mask=genetics.mutation_rate(0.05),  # Mutate at a 5% rate
+    crossover_mask=genetics.two_point_crossover,
     selection_function=genetics.tournament(2),
     elite_size=2,
     initial_generator=WordDNA)
@@ -61,7 +60,7 @@ while True:
 
     population = sim.step(population)
 ```
-		
+
 **Sample Output**:
 
 ```
@@ -82,3 +81,26 @@ HeDlo World! | Average score: 6.628
 HeDlo World! | Average score: 7.362
 Hello World! | Average score: 8.004
 ```
+
+TODO / Working on
+=================
+
+Short term
+----------
+
+- Real documentation, not just examples
+- PyPI deployment
+
+Medium term
+-----------
+
+- Rebuilding to be better, faster, stronger, easier.
+    - Taking advantage of the opportunities provided by the functional design
+
+Long term
+----------------
+
+- Comprehensive test coverage
+- New simulation types.
+    - Fluid simulation removes discrete generations, allowing agents to combine
+    and die randomly
