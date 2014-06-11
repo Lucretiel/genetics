@@ -14,10 +14,9 @@ def structured_segment(*ordered_types):
     name.
     '''
     types_table = {Type.__name__: i for i, Type in enumerate(ordered_types)}
-    total_length = sum(Type.static_size for Type in ordered_types)
 
     class StructuredSegment(DNABaseSegment):
-        static_length = total_length
+        static_length = sum(Type.static_size for Type in ordered_types)
         __slots__ = ()
 
         @staticmethod
