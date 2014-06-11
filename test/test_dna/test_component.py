@@ -64,13 +64,13 @@ def test_mutation():
     original_component = IncrementingComponent()
     component = original_component
     assert component.value == 0
-    component = component.mutate([1])
+    component = component.mutate(iter([True]))
     assert component.value == 1
-    component = component.mutate([0])
+    component = component.mutate(iter([False]))
     assert component.value == 1
-    component = component.mutate([1, 0])
+    component = component.mutate(iter([True, False]))
     assert component.value == 2
-    component = component.mutate([0, 1])
+    component = component.mutate(iter([False, True]))
     assert component.value == 2
     assert original_component.value == 0
 
@@ -98,7 +98,7 @@ def test_combine():
     parent1 = BasicComponent1()
     parent2 = BasicComponent2()
 
-    combine_check([True], True)
-    combine_check([False], False)
-    combine_check([True, False], True)
-    combine_check([False, True], False)
+    combine_check(iter([True]), True)
+    combine_check(iter([False]), False)
+    combine_check(iter([True, False]), True)
+    combine_check(iter([False, True]), False)

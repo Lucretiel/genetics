@@ -6,15 +6,9 @@ class DNABase(metaclass=abc.ABCMeta):
     DNABase is the base class for all dna. It defines the abstract methods that
     all DNA should have, as well as an __lt__ method for sorting.
     '''
-    @abc.abstractmethod
-    def total_length(self):
-        '''
-        This method returns the total length of this DNA. For dna with
-        subcomponents, it should return the sum of the lengths of those
-        components. See DNASegment for an example
-        '''
-        pass
+    #__slots__ = ('score',)
 
+    #TODO: Add helpers for calling type(self)(...) everywhere
     @abc.abstractmethod
     def mutate(self, mask):
         '''
@@ -33,12 +27,21 @@ class DNABase(metaclass=abc.ABCMeta):
         '''
         pass
 
+    @classmethod
+    def total_length(cls):
+        '''
+        This method is provided for backwards compatibility, and returns the
+        total length of this DNA. For DNA with subcomponents, this is the sum
+        of the lengths of the subcomponents. This is now computed beforehand
+        and stored in a class-scope variable. Deprecated.
+        '''
+        return cls.static_length
+
     def __lt__(self, other):
         return self.score < other.score
 
     def has_score(self):
         return hasattr(self, 'score')
-
 
 def combine_element_pairs(pairs):
     '''

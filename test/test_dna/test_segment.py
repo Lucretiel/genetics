@@ -12,12 +12,12 @@ class MutatingComponent(DNAComponent):
 
 class MutatingSegment(DNASegment):
     def initial_components(self):
-        return (MutatingComponent() for _ in range(20))
+        return [MutatingComponent() for _ in range(20)]
 
 
 class NestedMutatingSegment(DNASegment):
     def initial_components(self):
-        return (MutatingSegment() for _ in range(5))
+        return [MutatingSegment() for _ in range(5)]
 
 
 def test_total_length():

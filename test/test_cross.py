@@ -3,6 +3,11 @@ import itertools
 
 
 def mask_run(mask, b):
+    '''
+    Assert that there is a run of at least 0 elements that are b in the mask
+    iterator.. After completion, the mask has been consumed out to the end of
+    the run.
+    '''
     for m in mask:
         if m is (not b):
             break

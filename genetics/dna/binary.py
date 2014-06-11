@@ -1,44 +1,67 @@
 import random
 from .base import DNABase, combine_element_pairs
 
-
-class DNABinary(DNABase):
+class DNABaseBinary(DNABase):
     '''
     DNABinary is a relatively efficient implementation of DNA in which each
-    component is only a bit.
+    component is only a bit. Use a subclass with static_length, or the function
+    fixed_dna_binary, to create a fixed-length Binary DNA.
     '''
-    def __init__(self, bits):
+    __slots__ = ('bits', )
+
+    @staticmethod
+    def bit():
+        return random.choice((False, True))
+
+    def __init__(self, bits=None):
+        if bits is None:
+            self.bits = [bit() for _ in range(self.static_length)]
+
         #Allows for initializers of the form '1000101'
-        if isinstance(bits, str):
-            bits = map(int, bits)
+        elif isinstance(bits, str):
+            self.bits = [bool(int(bit)) for bit in bits]
 
-        #Allows for length initializers
-        if isinstance(bits, int):
-            bits = (random.choice((True, False)) for _ in range(bits))
-        self.components = tuple(map(bool, bits))
-
-    def total_length(self):
-        return len(self.components)
+        else:
+            self.bits = bits
 
     def mutate(self, mutate_mask):
-        return DNABinary(random.choice((True, False)) if mask else c
-                         for c, mask in zip(self.components, mutate_mask))
+        return type(self)(tuple(self.bit() if mask else bit for bit, mask in
+            zip(self.bits, mutate_mask)))
 
     def combine(self, other, combine_mask):
-        def combine_generator():
-            for c1, c2, mask in zip(self, other, combine_mask):
-                yield (c1, c2) if mask else (c2, c1)
-
-        child1, child2 = combine_element_pairs(combine_generator())
+        child1, child2 = combine_element_pairs((c1, c2) if mask else (c2, c1)
+            for c1, c2, mask in zip(self, other, combine_mask))
 
         return DNABinary(child1), DNABinary(child2)
 
+    @property
+    def components(self):
+        '''
+        Retained for backwards compatibility: Originally the data in a Binary
+        DNA was called components. To distinguish it from Segments, it was
+        renamed bits. Deprecated and will be removed in a future release.
+        '''
+        return self.bits
+
     #iteration
     def __iter__(self):
-        return iter(self.components)
+        return iter(self.bits)
 
     def __len__(self):
-        return len(self.components)
+        return len(self.bits)
 
     def __getitem__(self, index):
-        return self.components[index]
+        return self.bits[index]
+
+class DNABinary(DNABaseBinary):
+    '''
+    Retained for backwards compatibility: The old, dynamically sized DNABinary.
+    '''
+    def __init__(self, bits):
+        #Allows for int initializers to create a DNABinary of that length
+        if isinstance(bits, int):
+            bits = [self.bit() for _ in range(bits)]
+        DNABaseBinary.__init__(self, bits)
+
+    def total_length(self):
+        return len(self.bits)
