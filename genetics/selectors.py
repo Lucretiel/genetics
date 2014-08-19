@@ -10,16 +10,13 @@ def tournament(tournament_size):
     return tournament_selector
 
 
-def _accumulate_scores(population):
-    scores = list(itertools.accumulate(member.score for member in population))
-    return scores, scores[-1]
-
-
 def roulette(population, num_parents):
     #Uses code taken from
     #http://stackoverflow.com/questions/3679694/a-weighted-version-of-random-choice
 
-    cumulative_scores, total = _accumulate_scores(population)
+    cumulative_scores = list(
+        itertools.accumulate(member.score for member in population))
+    total = cumulative_scores[-1]
 
     for _ in range(num_parents):
         rand = random.random() * total
