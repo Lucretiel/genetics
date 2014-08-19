@@ -19,8 +19,8 @@ def roulette(population, num_parents):
     total = cumulative_scores[-1]
 
     for _ in range(num_parents):
-        rand = random.random() * total
-        yield population[bisect.bisect(cumulative_scores, rand)]
+        yield population[
+            bisect.bisect(cumulative_scores, random.uniform(0, total))]
 
 
 def stochastic(population, num_parents):
