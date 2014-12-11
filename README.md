@@ -23,7 +23,6 @@ class LetterComponent(genetics.DNAComponent):
         return random.choice(letters)
 
 class WordDNA(genetics.arrayed_segment(len(solution), LetterComponent)):
-    @property
     def score(self):
         return sum(comp.value == letter for comp, letter in zip(self, solution))
 
@@ -36,7 +35,8 @@ sim = genetics.DiscreteSimulation(
     crossover_mask=genetics.two_point_crossover,
     selection_function=genetics.tournament(2),
     elite_size=2,
-    initial_generator=WordDNA)
+    initial_generator=WordDNA,
+    fitness_function=WordDNA.score)
 
 
 def dna_stats(population):
