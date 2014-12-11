@@ -9,10 +9,10 @@ def one_point_crossover(length):
 
 
 def two_point_crossover(length):
-    points = sorted(random.randint(0, length) for _ in range(2))
-    yield from itertools.repeat(True, points[0])
-    yield from itertools.repeat(False, points[1] - points[0])
-    yield from itertools.repeat(True, length - points[1])
+    point1, point2 = sorted(random.randint(0, length) for _ in range(2))
+    yield from itertools.repeat(True, point1)
+    yield from itertools.repeat(False, point2 - point1)
+    yield from itertools.repeat(True, length - point2)
 
 
 def uniform_point_crossover(length):
