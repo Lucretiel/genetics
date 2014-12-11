@@ -6,7 +6,7 @@ class DNABase(metaclass=abc.ABCMeta):
     DNABase is the base class for all dna. It defines the abstract methods that
     all DNA should have, as well as an __lt__ method for sorting.
     '''
-    #__slots__ = ('score',)
+    __slots__ = ()
 
     #TODO: Add helpers for calling type(self)(...) everywhere
     @abc.abstractmethod
