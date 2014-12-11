@@ -5,7 +5,7 @@ class DNABaseBinary(DNABase):
     '''
     DNABinary is a relatively efficient implementation of DNA in which each
     component is only a bit. Use a subclass with static_length, or the function
-    fixed_dna_binary, to create a fixed-length Binary DNA.
+    structured.fixed_dna_binary, to create a fixed-length Binary DNA.
     '''
     __slots__ = ('bits', )
 
