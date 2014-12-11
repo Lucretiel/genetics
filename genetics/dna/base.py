@@ -37,11 +37,6 @@ class DNABase(metaclass=abc.ABCMeta):
         '''
         return cls.static_length
 
-    def __lt__(self, other):
-        return self.score < other.score
-
-    def has_score(self):
-        return hasattr(self, 'score')
 
 def combine_element_pairs(pairs):
     '''
