@@ -1,7 +1,7 @@
 genetics
 ========
 
-A python library for genetic algorithms
+A python 3 library for genetic algorithms
 
 Example
 =======
